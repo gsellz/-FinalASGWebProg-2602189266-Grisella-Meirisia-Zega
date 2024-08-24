@@ -17,7 +17,7 @@
         </form>
     </div>
 
-    <h1>Search Results for "{{ $query }}"</h1>
+    <h3>Search Results for "{{ $query }}"</h3>
 
     @if($users->isEmpty())
         <p>No users found.</p>
