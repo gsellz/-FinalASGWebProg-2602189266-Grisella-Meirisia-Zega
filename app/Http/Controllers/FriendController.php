@@ -17,7 +17,7 @@ class FriendController extends Controller
     {
         $userId = Auth::id();
         $friends = Friend::join('users', 'friends.friend_id', '=', 'users.id')
-            ->select('users.name', 'users.instagram', 'users.hobbies', 'users.age', 'users.gender', 'users.images_url as images_url')
+            ->select('users.id', 'users.name', 'users.instagram', 'users.hobbies', 'users.age', 'users.gender', 'users.images_url as images_url')
             ->where('user_id', '=', $userId)
             ->get();
 

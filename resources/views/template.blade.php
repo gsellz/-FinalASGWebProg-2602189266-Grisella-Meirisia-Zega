@@ -39,26 +39,28 @@
                             <a class="nav-link" href="{{ route('search') }}">Search</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('friends-request.index') }}">Friend request</a>
+                            <a class="nav-link" href="{{ route('friends-request.index') }}">Friend Request</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('friends.index') }}">My Friends</a>
                         </li>
                     </ul>
                 </div>
+
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         Notifications <span class="badge bg-danger">{{ Auth::user()->unreadNotifications->count() }}</span>
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-width" aria-labelledby="dropdownMenuButton1" style="width: 15vw;">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style="width: 15vw;">
                         @forelse(Auth::user()->unreadNotifications as $notification)
                             <li>
-                                <a class="dropdown-item dropdown-item-width"
-                                    href="#" style="white-space: normal; word-wrap: break-word; word-break: break-word;">{{ $notification->data['message'] }}</a>
+                                <a class="dropdown-item" href="#" style="white-space: normal; word-wrap: break-word; word-break: break-word;">
+                                    {{ $notification->data['message'] }}
+                                </a>
                             </li>
                         @empty
-                            <li><a class="dropdown-item dropdown-item-width" href="#">No new notifications</a></li>
+                            <li><a class="dropdown-item" href="#" style="white-space: normal; word-wrap: break-word; word-break: break-word;">No new notifications</a></li>
                         @endforelse
                     </ul>
                 </div>
@@ -72,7 +74,7 @@
         </nav>
     @endguest
 
-    <div class="container justify-content-center align-item-center mt-4">
+    <div class="container justify-content-center align-items-center mt-4">
         @yield('content')
     </div>
 

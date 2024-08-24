@@ -16,6 +16,7 @@
                             <li>{{ $hobby }}</li>
                         @endforeach
                     </ul>
+                    <a href="{{ route('message', ['user_id' => $user->id]) }}" class="btn btn-success">Send Message</a>
                 </div>
             </div>
         @endforeach

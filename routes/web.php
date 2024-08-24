@@ -40,4 +40,7 @@ Route::middleware(['auth', 'check.payment.status'])->group(function () {
 
     Route::get('/message/{user_id}', [MessageController::class, 'index'])->name('message');
     Route::post('/message/{user_id}', [MessageController::class, 'store'])->name('message.send');
+
+    Route::get('/notifications/read/{id}', [NotificationController::class, 'markAsRead'])->name('notifications.read');
+
 });
