@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\FriendController;
 use App\Http\Controllers\FriendRequestController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
 use App\Models\FriendRequest;
@@ -36,4 +37,7 @@ Route::middleware(['auth', 'check.payment.status'])->group(function () {
     Route::post('/friend-request/handle', [FriendRequestController::class, 'handleRequest'])->name('friends-request.handle');
 
     Route::get('/search', [UserController::class, 'search'])->name('search');
+
+    Route::get('/message/{user_id}', [MessageController::class, 'index'])->name('message');
+    Route::post('/message/{user_id}', [MessageController::class, 'store'])->name('message.send');
 });

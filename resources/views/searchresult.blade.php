@@ -14,39 +14,40 @@
                 <div class="col-md-2" style="width: 20%">
                     <div class="row g-2">
                         <!-- Gender Filter -->
-                    <div class="col-md-6">
-                        <select name="gender" class="form-select">
-                            <option value="">All Genders</option>
-                            <option value="Male" {{ request('gender') == 'Male' ? 'selected' : '' }}>Male</option>
-                            <option value="Female" {{ request('gender') == 'Female' ? 'selected' : '' }}>Female</option>
-                        </select>
-                    </div>
+                        <div class="col-md-6">
+                            <select name="gender" class="form-select">
+                                <option value="">All Genders</option>
+                                <option value="Male" {{ request('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+                                <option value="Female" {{ request('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+                            </select>
+                        </div>
 
-                    <!-- Hobbies Filter -->
-                    <div class="col-md-6">
-                        <select name="hobbies" class="form-select">
-                            <option value="">All Hobbies</option>
-                            @php
-                                $possibleHobbies = [
-                                    'Reading',
-                                    'Travelling',
-                                    'Sports',
-                                    'Music',
-                                    'Gaming',
-                                    'Cooking',
-                                    'Gardening',
-                                    'Photography',
-                                    'Crafting',
-                                    'Painting',
-                                ];
-                            @endphp
-                            @foreach ($possibleHobbies as $hobby)
-                                <option value="{{ $hobby }}" {{ request('hobbies') == $hobby ? 'selected' : '' }}>
-                                    {{ $hobby }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                        <!-- Hobbies Filter -->
+                        <div class="col-md-6">
+                            <select name="hobbies" class="form-select">
+                                <option value="">All Hobbies</option>
+                                @php
+                                    $possibleHobbies = [
+                                        'Reading',
+                                        'Travelling',
+                                        'Sports',
+                                        'Music',
+                                        'Gaming',
+                                        'Cooking',
+                                        'Gardening',
+                                        'Photography',
+                                        'Crafting',
+                                        'Painting',
+                                    ];
+                                @endphp
+                                @foreach ($possibleHobbies as $hobby)
+                                    <option value="{{ $hobby }}"
+                                        {{ request('hobbies') == $hobby ? 'selected' : '' }}>
+                                        {{ $hobby }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -56,7 +57,6 @@
             </div>
         </form>
     </div>
-
 
     <h3>Search Results for "{{ $query }}"</h3>
 
@@ -77,11 +77,26 @@
                                 <li>{{ $hobby }}</li>
                             @endforeach
                         </ul>
-                        <form action="{{ route('friends-request.store') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="receiver_id" value="{{ $user->id }}">
-                            <button type="submit" class="btn btn-primary">Thumbs Up!</button>
-                        </form>
+
+                        @php
+                            // Check if the logged-in user is friends with this user
+                            $isFriend = \App\Models\Friend::where('user_id', Auth::id())
+                                ->where('friend_id', $user->id)
+                                ->exists();
+                        @endphp
+
+                        @if ($isFriend)
+                            <a href="{{ route('message', ['user_id' => $user->id]) }}" class="btn btn-success">Send
+                                Message</a>
+                        @else
+                            <form action="{{ route('friends-request.store') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="receiver_id" value="{{ $user->id }}">
+                                <button type="submit" class="btn btn-primary">Thumbs Up!</button>
+                            </form>
+                        @endif
+
+
                     </div>
                 </div>
             @endforeach
