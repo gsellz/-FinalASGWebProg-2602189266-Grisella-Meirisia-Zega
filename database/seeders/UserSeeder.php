@@ -54,7 +54,8 @@ class UserSeeder extends Seeder
                 'age' => random_int(18, 30),
                 'registration_price' => random_int(100000, 125000),
                 'payment_status' => $paymentStatus,
-                'coins' => $totalCoins,  // Add coins directly to the user record
+                'coins' => $totalCoins,
+                'images_url' => $faker->numberBetween(1, 5) . '.jpeg',
             ]);
         }
     }

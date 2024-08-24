@@ -48,7 +48,7 @@ class UserController extends Controller
 
         $excludedIds = array_merge($friendIds, $friendReqIds);
 
-        $users = User::select('id', 'name', 'instagram', 'hobbies', 'age', 'gender')
+        $users = User::select('id', 'name', 'instagram', 'hobbies', 'age', 'gender', 'images_url')
             ->where('id', '!=', $loggedInUserId)
             ->whereNotIn('id', $excludedIds)
             ->get();
@@ -90,7 +90,7 @@ class UserController extends Controller
         return view('searchresult', compact('users', 'query'));
     }
 
-    
+
 
     /**
      * Show the form for editing the specified resource.

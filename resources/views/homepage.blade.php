@@ -25,9 +25,9 @@
     <div class="d-flex flex-wrap gap-3 justify-content-center">
         @foreach ($users as $user)
             <div class="card" style="width: 18rem;">
-                <img src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp"
+                <img src="{{ Storage::url('photos/' . $user->images_url) }}"
                     class="card-img-top" alt="User Image">
-                    
+
                 <div class="card-body">
                     <h5 class="card-title">{{ $user->name }}</h5>
                     <p class="card-text">Gender: {{ $user->gender }}</p>

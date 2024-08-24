@@ -5,7 +5,7 @@
     <div class="d-flex flex-wrap gap-3 justify-content-center">
         @foreach ($friends as $user)
             <div class="card" style="width: 18rem;">
-                <img src="#" class="card-img-top" alt="User Image">
+                <img src="{{ Storage::url('photos/' . $user->images_url) }}" class="card-img-top" alt="User Image">
 
                 <div class="card-body">
                     <h5 class="card-title">{{ $user->name }}</h5>
@@ -19,6 +19,6 @@
                 </div>
             </div>
         @endforeach
-    </div>  
+    </div>
 
 @endsection

@@ -19,9 +19,11 @@ return new class extends Migration
             $table->json('hobbies');
             $table->string('number');
             $table->integer('age');
-            $table->integer('registration_price')->default(0);  // Ensure this field is present
+            $table->integer('registration_price')->default(0);
             $table->enum('payment_status', ['Paid', 'Not Paid'])->default('Not Paid');
-            $table->integer('coins')->default(0);  // Ensure this field is present
+            $table->integer('coins')->default(0);
+            $table->string('images_url');
+
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

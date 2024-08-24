@@ -20,7 +20,7 @@ class FriendRequestController extends Controller
 
         // Get friend requests sent to the current user that have not been accepted yet
         $friends = FriendRequest::join('users', 'friend_request.sender_id', '=', 'users.id')
-        ->select('friend_request.sender_id', 'users.name', 'users.instagram', 'users.hobbies', 'users.age', 'users.gender')
+        ->select('friend_request.sender_id', 'users.name', 'users.instagram', 'users.hobbies', 'users.age', 'users.gender', 'users.images_url as images_url')
         ->where('friend_request.receiver_id', '=', $userId)
             ->where('friend_request.request_status', '=', 'pending')
             ->get();
