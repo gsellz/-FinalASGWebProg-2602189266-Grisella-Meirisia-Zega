@@ -79,16 +79,47 @@ class UserController extends Controller
         return view('user.show', compact('user'));
     }
 
+    // public function search(Request $request)
+    // {
+    //     $query = $request->input('search');
+
+    //     // Search users by name, email, or other fields
+    //     $users = User::where('name', 'LIKE', "%{$query}%")
+    //     ->get();
+
+    //     return view('searchresult', compact('users', 'query'));
+    // }
+
     public function search(Request $request)
     {
         $query = $request->input('search');
+        $gender = $request->input('gender');
+        $hobbies = $request->input('hobbies');
 
-        // Search users by name, email, or other fields
-        $users = User::where('name', 'LIKE', "%{$query}%")
-        ->get();
+        // Start a query builder instance
+        $usersQuery = User::query();
 
-        return view('searchresult', compact('users', 'query'));
+        // Apply search filter
+        if ($query) {
+            $usersQuery->where('name', 'LIKE', "%{$query}%");
+        }
+
+        // Apply gender filter
+        if ($gender) {
+            $usersQuery->where('gender', $gender);
+        }
+
+        // Apply hobbies filter
+        if ($hobbies) {
+            $usersQuery->whereJsonContains('hobbies', $hobbies);
+        }
+
+        // Get the filtered users
+        $users = $usersQuery->get();
+
+        return view('searchresult', compact('users', 'query', 'gender', 'hobbies'));
     }
+
 
 
 
